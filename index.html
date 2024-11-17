@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Job Tracker</h1>
+        <div id="form-section">
+            <h2>Add or Edit Job Application</h2>
+            <form id="job-form">
+                <input type="text" id="company" placeholder="Company Name" required>
+                <input type="text" id="position" placeholder="Position" required>
+                <input type="date" id="date" required>
+                <select id="status">
+                    <option value="Applied">Applied</option>
+                    <option value="Interview">Interview</option>
+                    <option value="Offered">Offered</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+                <textarea id="notes" placeholder="Add notes"></textarea>
+                <button type="submit">Add Job</button>
+            </form>
+        </div>
+        <div id="search-section">
+            <h2>Search Jobs</h2>
+            <input type="text" id="search-input" placeholder="Search by company, position, or status">
+        </div>
+        <div id="jobs-section">
+            <h2>Job Applications</h2>
+            <table id="jobs-table">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Position</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Notes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button id="export-btn">Export to CSV</button>
+            <input type="file" id="import-btn" accept=".csv" />
+            <button id="import-btn">Import CSV</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</body>
+</html>
