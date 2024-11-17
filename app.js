@@ -4,20 +4,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("search-input");
     const submitButton = document.querySelector("button[type='submit']");
     const exportButton = document.getElementById("export-btn");
-    const importInput = document.getElementById("import-btn");
+    const importInput = document.getElementById("import-input");
+    const importButton = document.getElementById("import-btn-action");
 
     let editingIndex = null; // Track which job is being edited
 
     function loadJobs(jobsToLoad) {
-        jobsTableBody.innerHTML = "";
+        jobsTableBody.innerHTML = ""; // Clear the table body first
         jobsToLoad.forEach((job, index) => {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td>${job.company}</td>
-                <td>${job.position}</td>
-                <td>${job.date}</td>
-                <td>${job.status}</td>
-                <td>${job.notes}</td>
+                <td>${job.company || "N/A"}</td>
+                <td>${job.position || "N/A"}</td>
+                <td>${job.date || "N/A"}</td>
+                <td>${job.status || "N/A"}</td>
+                <td>${job.notes || "N/A"}</td>
                 <td>
                     <button onclick="editJob(${index})">Edit</button>
                     <button onclick="confirmDelete(${index})">Delete</button>
@@ -103,7 +104,11 @@ document.addEventListener("DOMContentLoaded", function () {
         XLSX.writeFile(workbook, "job_tracker_data.xlsx");
     });
 
-    // Import from Excel or CSV using SheetJS
+    // Trigger file input when "Import XLSX" button is clicked
+    importButton.addEventListener("click", function () {
+        importInput.click(); // Trigger the file input to open file dialog
+    });
+
     importInput.addEventListener("change", function (e) {
         const file = e.target.files[0];
         if (file) {
@@ -115,10 +120,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 const worksheet = workbook.Sheets[firstSheetName];
                 const jobs = XLSX.utils.sheet_to_json(worksheet);
 
-                localStorage.setItem("jobs", JSON.stringify(jobs));
-                loadJobs(jobs);
+                if (jobs.length > 0) {
+                    localStorage.setItem("jobs", JSON.stringify(jobs));
+                    loadJobs(jobs); // Re-render the jobs table
+                } else {
+                    console.log("No valid jobs found in the file.");
+                }
             };
             reader.readAsArrayBuffer(file);
+        } else {
+            console.log("No file selected.");
         }
     });
 
