@@ -127,3 +127,7 @@ button[onclick^="editJob"] {
 button[onclick^="editJob"]:hover {
     background-color: #e0a800;
 }
+
+#export-btn , #import-btn-action {
+    background-color: black;
+}
