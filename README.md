@@ -1,6 +1,10 @@
+
 # Jober
 
 A simple job application tracker built with HTML, CSS, and JavaScript. The app allows you to add, edit, and delete job applications, search through your job records, and import/export job data as excel files using SheetJS.
+
+https://github.com/user-attachments/assets/2a57478b-d34d-4429-a0e1-0441b92c75d6
+
 
 # Get started
 Use the following link to get using it right away! [Visit the site](https://mimferpo.github.io/Jober/)
